@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,6 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-slate-100 overflow-x-hidden antialiased selection:bg-blue-500/30`}>
+        {/* Google Analytics Integration */}
+        <GoogleAnalytics ga_id="G-ELECTION2026" />
+        
         {/* Decorative background elements */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
           <div className="absolute top-[20%] left-[10%] w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"></div>

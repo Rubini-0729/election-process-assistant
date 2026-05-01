@@ -4,6 +4,8 @@ import Timeline from '@/components/Timeline';
 import AIAssistant from '@/components/AIAssistant';
 import TurnoutChart from '@/components/TurnoutChart';
 import Quiz from '@/components/Quiz';
+import PollingStationMap from '@/components/PollingStationMap';
+import FirebaseSubscription from '@/components/FirebaseSubscription';
 import { BookOpen, Flag, Vote, BarChart3, BrainCircuit, Quote } from 'lucide-react';
 
 export default function Home() {
@@ -28,6 +30,9 @@ export default function Home() {
             "Every citizen must vote, it is our right and our power."
           </h2>
         </div>
+
+        {/* Google Service: Firebase Subscription */}
+        <FirebaseSubscription />
       </header>
 
       {/* Main Content Grid */}
@@ -69,8 +74,12 @@ export default function Home() {
             <TurnoutChart />
           </div>
         </section>
-
       </div>
+
+      {/* Google Services Section: Map */}
+      <section className="w-full max-w-7xl z-10 mb-20">
+          <PollingStationMap />
+      </section>
 
       {/* Full Width Quiz Section */}
       <section className="w-full max-w-7xl z-10 mb-20 bg-slate-900/80 p-12 rounded-3xl border border-slate-700 shadow-2xl">
