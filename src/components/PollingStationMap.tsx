@@ -30,6 +30,7 @@ export default function PollingStationMap() {
       {/* Meaningful Google Maps Integration */}
       <div className="w-full h-[400px] rounded-2xl overflow-hidden border-2 border-slate-700 shadow-inner grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
         <iframe
+          title="Find Your Polling Station Map"
           width="100%"
           height="100%"
           style={{ border: 0 }}

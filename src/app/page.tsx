@@ -1,12 +1,14 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Flashcard from '@/components/Flashcard';
 import Timeline from '@/components/Timeline';
-import AIAssistant from '@/components/AIAssistant';
-import TurnoutChart from '@/components/TurnoutChart';
-import Quiz from '@/components/Quiz';
-import PollingStationMap from '@/components/PollingStationMap';
-import FirebaseSubscription from '@/components/FirebaseSubscription';
 import { BookOpen, Flag, Vote, BarChart3, BrainCircuit, Quote } from 'lucide-react';
+
+const TurnoutChart = dynamic(() => import('@/components/TurnoutChart'));
+const Quiz = dynamic(() => import('@/components/Quiz'));
+const PollingStationMap = dynamic(() => import('@/components/PollingStationMap'));
+const AIAssistant = dynamic(() => import('@/components/AIAssistant'));
+const FirebaseSubscription = dynamic(() => import('@/components/FirebaseSubscription'));
 
 export default function Home() {
   return (
@@ -27,7 +29,7 @@ export default function Home() {
         <div className="mt-12 p-8 bg-blue-600/90 rounded-3xl border-2 border-white/20 shadow-2xl relative overflow-hidden">
           <Quote className="absolute top-4 left-4 w-16 h-16 text-white/10" />
           <h2 className="text-3xl md:text-4xl font-bold text-white relative z-10 drop-shadow-lg italic">
-            "Every citizen must vote, it is our right and our power."
+            &quot;Every citizen must vote, it is our right and our power.&quot;
           </h2>
         </div>
 

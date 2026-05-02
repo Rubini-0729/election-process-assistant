@@ -17,6 +17,15 @@ export default function AIAssistant() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -36,10 +45,12 @@ export default function AIAssistant() {
     setIsLoading(true);
 
     try {
+      abortControllerRef.current = new AbortController();
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
+        signal: abortControllerRef.current.signal
       });
 
       const data = await response.json();
@@ -49,8 +60,10 @@ export default function AIAssistant() {
       } else {
         setMessages((prev) => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again later.' }]);
       }
-    } catch (error) {
-      setMessages((prev) => [...prev, { role: 'assistant', content: 'Network error. Please check your connection.' }]);
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name !== 'AbortError') {
+        setMessages((prev) => [...prev, { role: 'assistant', content: 'Network error. Please check your connection.' }]);
+      }
     } finally {
       setIsLoading(false);
     }

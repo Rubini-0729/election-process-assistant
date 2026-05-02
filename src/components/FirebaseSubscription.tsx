@@ -1,12 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Mail, Send, CheckCircle } from 'lucide-react';
 
 export default function FirebaseSubscription() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,7 +23,7 @@ export default function FirebaseSubscription() {
     
     setIsLoading(true);
     // Mocking Firebase Firestore operation
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       console.log(`Email ${email} saved to Firebase Firestore`);
       setIsLoading(false);
       setIsSubscribed(true);

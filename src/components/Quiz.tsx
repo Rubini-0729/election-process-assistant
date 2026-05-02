@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, XCircle } from 'lucide-react';
 
@@ -27,6 +27,15 @@ export default function Quiz() {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleAnswerClick = (index: number) => {
     setSelectedOption(index);
@@ -34,7 +43,7 @@ export default function Quiz() {
       setScore(score + 1);
     }
     
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setSelectedOption(null);
       const nextQuestion = currentQuestion + 1;
       if (nextQuestion < questions.length) {
